@@ -4,6 +4,7 @@ import socket
 import time
 
 def main():
+    # TODO: Add actual args for this. :P
     test_protocol_versions("10.0.0.1", 443)
     test_cipher_suites("10.0.0.1", 443)
 
