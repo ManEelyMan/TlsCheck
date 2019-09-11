@@ -1,18 +1,44 @@
 # TlsCheck
-I wanted to learn more about the TLS protocol and to remotely determine a server's TLS security posture. These tools are a result of that.
+I created this because a) I needed such a tool when doing pentests, and b) I wanted to learn more about the TLS protocol itself.
+
+These tools are a result of that.
 
 My first attempt under /src/c_sharp was what I came up with while learning it. It could be considered a preliminary object library for TLS. It is written for dotnet core and thus can be used on any platform.
 
-I took the learnings from my C# tool and created a quick and dirty python script to do the same. My non-Microsoft friends will probably enjoy this one more. :)
+I took the learnings from my C# tool and created quick and dirty scripts in python and Powershell to do the same. (Python for my non-Microsoft friends :) )
 
-Next up will be a version for Powershell. Stay tuned.
+All input/feedback is welcome. Hope someone else can enjoy this.
 
-I wrote this because a) I needed such a tool when doing pentests, and b) I wanted to learn more about the TLS protocol itself.
+# /src/powershell
+
+## Usage
+TlsCheck.ps1 -TargetHost 10.0.0.1 -TargetPort 443
+
+## Examples with output:
+PS D:\src\TlsCheck\src\powershell> & D:\src\TlsCheck\src\powershell\TlsCheck.ps1 -TargetHost 10.0.0.1 -TargetPort 443
+Testing TLS configuration of host 10.0.0.1, Port 443 ...
+
+Supported Protocol Versions:
+Tls10
+Tls11
+Tls12
+Tls13
+
+Supported Cipher Suites:
+TLS_RSA_WITH_3DES_EDE_CBC_SHA
+TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA
+TLS_RSA_WITH_AES_128_CBC_SHA
+TLS_DHE_RSA_WITH_AES_128_CBC_SHA
+TLS_RSA_WITH_AES_256_CBC_SHA
+TLS_DHE_RSA_WITH_AES_256_CBC_SHA
+TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA
+TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
 
 # /src/python
 
 ## Usage
-./TlsCheck.py {host} {port}
+TlsCheck.py {host} {port}
 
 ## Examples with output:
 d:\src\TlsCheck\src\python>.\TlsCheck.py 10.0.0.1 443
