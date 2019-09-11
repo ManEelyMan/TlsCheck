@@ -87,7 +87,7 @@ namespace TlsCheck.Tls
                     requestParameters.CipherSuites,
                     requestParameters.RecordVersion);
 
-                await WriteRecordToStringAsync(hello, s);
+                await WriteRecordToStreamAsync(hello, s);
 
                 return await HandleResponse(s, requestParameters);
             }
@@ -107,7 +107,7 @@ namespace TlsCheck.Tls
             return RecordFactory.Create(new Span<byte>(buffer));
         }
 
-        private static async Task WriteRecordToStringAsync(Record record, Stream destination)
+        private static async Task WriteRecordToStreamAsync(Record record, Stream destination)
         {
             byte[] buffer = new byte[MaxRecordSizeInBytes];
             uint byteCount = record.Serialize(new Span<byte>(buffer));

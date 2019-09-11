@@ -61,8 +61,8 @@ def send_client_hello(host, port, protocolVersionHex, cipherSuiteHex):
     '01002b000b0a0a0a0304030303020301' + 
     '001b0003020002eaea000100' + 
     '0015' +                                         # Padding Extension
-    paddingLengthHex +                               # Padding Extension Length (TODO: Calculate this)
-    ('0' * (paddingLength*2)))                       # Padding Data (TODO: This needs to be based off of length calculation above.)
+    paddingLengthHex +                               # Padding Extension Length
+    ('0' * (paddingLength*2)))                       # Padding Data
 
     request = bytes.fromhex(clientHelloHex)
 
