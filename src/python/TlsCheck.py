@@ -1,15 +1,28 @@
 import calendar
 import os
 import socket
+import sys
 import time
 
-def main():
-    # TODO: Add actual args for this. :P
-    test_protocol_versions("10.0.0.1", 443)
-    test_cipher_suites("10.0.0.1", 443)
+def main(args):
+
+    if len(args) < 3:
+        usage()
+        return
+
+    host = args[1]
+    port = int(args[2])
+
+    print("Testing TLS configuration of %s:%d...\n" % (host, port))
+
+    print("Supported versions of SSL/TLS:")
+    test_protocol_versions(host, port)
+
+    print("\nSupported cipher suites:")
+    test_cipher_suites(host, port)
 
 def usage():
-    pass
+    print("python TlsCheck.py <host> <port>")
 
 def send_client_hello(host, port, protocolVersionHex, cipherSuiteHex):
 
@@ -58,16 +71,18 @@ def send_client_hello(host, port, protocolVersionHex, cipherSuiteHex):
     client.send(request)
 
     response = client.recv(4096)
+    client.close()
+
     return response
 
 def test_protocol_versions(host, port):
 
     protocol_versions = [
-        ("0300", "SSL v3.0"),
-        ("0301", "TLS v1.0"), 
-        ("0302", "TLS v1.1"),
-        ("0303", "TLS v1.2"),
-        ("0304", "TLS v1.3")]
+        ("0300", "Ssl30"),
+        ("0301", "Tls10"), 
+        ("0302", "Tls11"),
+        ("0303", "Tls12"),
+        ("0304", "Tls13")]
 
     for protocol_version in protocol_versions:
 
@@ -460,4 +475,5 @@ def test_cipher_suites(host, port):
         if (int(response[0]) == 22): # Check for Server Hello response. Else, assume error.
             print(description)
 
-main()
+if __name__ == "__main__":
+    main(sys.argv)
