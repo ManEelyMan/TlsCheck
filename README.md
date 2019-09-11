@@ -1,15 +1,49 @@
 # TlsCheck
-A tool to check the capabilities supported by a server's TLS channel.
+I wanted to learn more about the TLS protocol and to remotely determine a server's TLS security posture. These tools are a result of that.
+
+My first attempt under /src/c_sharp was what I came up with while learning it. It could be considered a preliminary object library for TLS. It is written for dotnet core and thus can be used on any platform.
+
+I took the learnings from my C# tool and created a quick and dirty python script to do the same. My non-Microsoft friends will probably enjoy this one more. :)
+
+Next up will be a version for Powershell. Stay tuned.
 
 I wrote this because a) I needed such a tool when doing pentests, and b) I wanted to learn more about the TLS protocol itself.
 
-# Building:
+# /src/python
+
+## Usage
+./TlsCheck.py {host} {port}
+
+## Examples with output:
+d:\src\TlsCheck\src\python>.\TlsCheck.py 10.0.0.1 443
+Testing TLS configuration of 10.0.0.1:443...
+
+Supported versions of SSL/TLS:
+Tls10
+Tls11
+Tls12
+Tls13
+
+Supported cipher suites:
+TLS_RSA_WITH_3DES_EDE_CBC_SHA
+TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA
+TLS_RSA_WITH_AES_128_CBC_SHA
+TLS_DHE_RSA_WITH_AES_128_CBC_SHA
+TLS_RSA_WITH_AES_256_CBC_SHA
+TLS_DHE_RSA_WITH_AES_256_CBC_SHA
+TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA
+TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+
+# /src/c_sharp
+
+## Building:
 Either open with Visual Studio and build it or run "dotnet build" from a VS command prompt.
 
-# Usage
+## Usage
 dotnet TlsCheck.dll {host} {port} [protocolversions|ciphersuites]
 
-# Examples with output:
+## Examples with output:
 D:\src>dotnet "D:\src\TlsCheck\src\c_sharp\bin\Debug\netcoreapp2.1\TlsCheck.dll" 10.0.0.1 443 protocolversions
 Tls10  
 Tls11  
